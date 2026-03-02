@@ -3,28 +3,44 @@ name: Deploy Hugo site
 on:
   push:
     branches:
-      - master
+      - main  # Change this to 'master' if that is your branch name
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      # Checkout repo
-      - uses: actions/checkout@v3
-
-      # Install Hugo
-      - uses: peaceiris/actions-hugo@v2
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          hugo-version: '0.104.3' # same version as my local build
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.104.3'
           extended: true
 
-      # Build site using vendored modules
       - name: Build
-        run: |
-          hugo --gc --minify
+        run: hugo --gc --minify
 
-      # Deploy to GitHub Pages
-      - uses: peaceiris/actions-gh-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
