@@ -23,26 +23,3 @@
     display: block; // Show dark image
   }
 }
-
-/* Prevent Gallery Overlap */
-.gallery {
-  /* Ensure the container can expand to fit its contents */
-  display: block !important;
-  min-height: 500px; 
-  
-  /* Force a standard grid if the Isotope script fails to trigger */
-  &.isotope {
-    overflow: visible !important;
-  }
-}
-
-.gallery-item {
-  /* Add a transition to make the 'snap' into place smoother */
-  transition: transform 0.4s ease-out;
-  
-  /* Ensure images don't collapse to 0 height before loading */
-  img {
-    min-height: 150px;
-    background-color: rgba(0,0,0,0.05); /* Placeholder color while loading */
-  }
-}
