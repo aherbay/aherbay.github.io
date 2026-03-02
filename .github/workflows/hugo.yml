@@ -15,7 +15,7 @@ jobs:
       # Install Hugo
       - uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.121.2' # same version as my local build
+          hugo-version: '0.128.0' # same version as my local build
           extended: true
 
       # Build site using vendored modules
