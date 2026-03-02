@@ -46,7 +46,7 @@ superuser: true
 title: Alexandre Herbay
 ---
 
-Je suis passionné par la science des données et le développement logiciel, que ce soit pour créer des outils pour les scientifiques et les cliniciens, étudier la cognition humaine et le langage, ou dans le contexte de l'intelligence artificielle.
+Je suis passionné par la science des données et le développement logiciel, que ce soit pour créer des outils pour les scientifiques et les cliniciens, étudier la cognition humaine et le langage, ou dans le contexte de l'intelligence artificielle (IA).
 
 Dans le cadre de mon doctorat, j'ai utilisé une technique de neuro-imagerie basée sur l'EEG (ERP) afin d'évaluer comment les relations sémantiques et la structure des phrases influencent la façon dont le cerveau accède au sens des mots en temps réel. J'ai également créé un nouveau package R (ERPscope) afin de réaliser des analyses et des visualisations de grande qualité et facilement personnalisables.
 
