@@ -1,12 +1,15 @@
 {{- $js := `
-  var grid = document.querySelector(".gallery");
-  if (grid) {
-    var checkIso = setInterval(function() {
-      if (window.Isotope) {
-        clearInterval(checkIso);
+  function triggerGalleryFix() {
+    var gallery = document.querySelector(".gallery");
+    if (gallery && window.imagesLoaded) {
+      imagesLoaded(gallery, function() {
+        // Shaking the window forces Isotope to recalculate positions
         window.dispatchEvent(new Event("resize"));
-      }
-    }, 100);
+      });
+    }
   }
+  window.addEventListener("load", triggerGalleryFix);
+  // Backup nudge for fast-loading environments
+  setTimeout(triggerGalleryFix, 1000);
 ` -}}
 <script>{{ $js | safeJS }}</script>
