@@ -17,3 +17,4 @@ design:
 ---
 
 {{< gallery album="prescovers" >}}
+{{< gallery_fix >}}
