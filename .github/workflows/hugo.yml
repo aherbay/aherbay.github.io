@@ -20,7 +20,7 @@ jobs:
       # Build site using vendored modules
       - name: Build
         run: |
-          hugo --gc --minify --ignoreCache --vendor
+          hugo --gc --minify --ignoreCache
 
       # Deploy to GitHub Pages
       - uses: peaceiris/actions-gh-pages@v3
