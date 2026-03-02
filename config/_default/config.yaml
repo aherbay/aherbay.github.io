@@ -70,6 +70,13 @@ related:
       weight: 70
 security:
   _merge: deep
+  funcs:
+    getenv: ['^HUGO_']
+    getCSV: ['^.*']
+    getJSON: ['^.*']
+  http:
+    methods: ['(?i)GET']
+    urls: ['.*']
 sitemap:
   _merge: deep
 minify:
