@@ -61,7 +61,6 @@ fr:
   title: Alexandre Herbay
   menu:
       main:
-      main:
       - name: Accueil
         url: '#about'
         weight: 10
