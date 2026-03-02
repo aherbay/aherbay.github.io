@@ -69,14 +69,19 @@ related:
     - name: categories
       weight: 70
 security:
-  _merge: deep
   funcs:
-    getenv: ['^HUGO_']
-    getCSV: ['^.*']
-    getJSON: ['^.*']
+    getenv:
+      - '^HUGO_'
+    getCSV:
+      - '.*'
+    getJSON:
+      - '.*'
   http:
-    methods: ['(?i)GET']
-    urls: ['.*']
+    methods:
+      - 'GET'
+      - 'POST'
+    urls:
+      - '.*'
 sitemap:
   _merge: deep
 minify:
