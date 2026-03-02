@@ -1,0 +1,19 @@
+<script>
+  (function() {
+    var checkGallery = setInterval(function() {
+      var gallery = document.querySelector('.gallery');
+      if (gallery && window.Isotope) {
+        clearInterval(checkGallery);
+        // Use the built-in imagesLoaded if available
+        imagesLoaded(gallery, function() {
+          var iso = new Isotope(gallery, {
+            itemSelector: '.gallery-item',
+            layoutMode: 'masonry'
+          });
+          iso.layout();
+          console.log("Gallery Fix: Layout refreshed");
+        });
+      }
+    }, 100); // Check every 100ms until gallery and Isotope are ready
+  })();
+</script>
