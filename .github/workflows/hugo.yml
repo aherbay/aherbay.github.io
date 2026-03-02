@@ -16,6 +16,7 @@ jobs:
       - uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.157.0'  # same version as my local build
+          extended: true
 
       # Build site using vendored modules
       - name: Build
