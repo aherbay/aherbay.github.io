@@ -1,25 +1,5 @@
 {{- $js := `
-  function fixGalleryBounds() {
-    const grid = document.querySelector(".gallery-grid");
-    const items = document.querySelectorAll(".gallery-item");
-    
-    if (grid && items.length > 0) {
-      // Remove the theme's broken 'absolute' calculation
-      grid.style.height = "auto";
-      
-      items.forEach(item => {
-        item.style.position = "relative";
-        item.style.top = "auto";
-        item.style.left = "auto";
-        item.style.transform = "none";
-      });
-      
-      console.log("Layout: Bounds corrected and coordinates cleared.");
-    }
-  }
-
-  // Run as soon as possible and again when images are fully ready
-  window.addEventListener("DOMContentLoaded", fixGalleryBounds);
-  window.addEventListener("load", fixGalleryBounds);
+  console.log("CSS Grid override active. Disabling Isotope for gallery.");
+  // No complex JS needed if the CSS Grid is forced
 ` -}}
 <script>{{ $js | safeJS }}</script>
