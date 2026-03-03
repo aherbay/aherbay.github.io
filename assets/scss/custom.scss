@@ -24,31 +24,34 @@
   }
 }
 
-/* 1. Eliminate the 'overflow: visible' warning at the root */
+/* 2. Fix 'overflow: visible' warning & Force 400px Crop */
 .gallery-grid img, 
 .gallery-item img {
-  overflow: clip !important;   /* This is the DIRECT fix for the console warning */
+  /* DIRECT FIX from github.com/WICG/view-transitions doc */
+  overflow: clip !important; 
+  overflow-clip-margin: content-box !important;
+  
+  /* CROP LOGIC */
+  width: 400px !important;
+  height: 300px !important; 
+  object-fit: cover !important;
   display: block !important;
-  width: 400px !important;    /* Your requested width */
-  height: 300px !important;   /* Forced height for the crop */
-  object-fit: cover !important; /* Crops the image to fit the 400x300 box */
 }
 
-/* 2. Reset the layout container */
+/* 3. Force Layout Stability */
 .gallery-grid {
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 20px !important;
   justify-content: center !important;
-  height: auto !important;     /* Kill Isotope's calculated height */
-  overflow: hidden !important;
+  height: auto !important;
 }
 
-/* 3. Strip positioning from items */
 .gallery-item {
-  position: relative !important; 
+  position: relative !important;
   top: auto !important;
   left: auto !important;
   transform: none !important;
   width: 400px !important;
+  flex: 0 0 400px !important;
 }
