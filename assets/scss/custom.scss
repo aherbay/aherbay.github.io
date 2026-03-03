@@ -23,14 +23,34 @@
     display: block; // Show dark image
   }
 }
-/* Address the browser console warning */
+
+/* 1. Fix the Console Warning & Image Bounds */
 .gallery-grid img, 
 .gallery-item img {
-  overflow: clip !important; 
-  display: block;
+  overflow: clip !important; /* Satisfies the browser warning */
+  display: block !important;
+  max-width: 100%;
+  height: auto !important;
+  /* Prevent images from being seen as 0px tall before loading */
+  min-height: 10px; 
 }
 
-/* Ensure the container isn't forcing a weird overflow */
+/* 2. Fix the Container Layout */
 .gallery-grid {
-  overflow: hidden !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 15px;
+  justify-content: center;
+  overflow: hidden !important; 
+  height: auto !important; /* Prevents the container from collapsing to 0px */
+}
+
+/* 3. Disable the 'Pile-up' Logic */
+.gallery-item {
+  position: relative !important; /* Force items out of absolute (0,0) stack */
+  top: auto !important;
+  left: auto !important;
+  margin-bottom: 20px;
+  /* Ensure a base width so they form a grid */
+  flex: 0 1 300px; 
 }
