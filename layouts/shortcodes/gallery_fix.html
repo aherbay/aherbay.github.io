@@ -1,26 +1,25 @@
 {{- $js := `
-  function fixGalleryOverlap() {
-    var grid = document.querySelector(".gallery-grid");
-    if (grid) {
-      // 1. Force the container to recognize its children
-      grid.style.display = "flex";
-      grid.style.flexWrap = "wrap";
-      grid.style.gap = "10px";
-      grid.style.justifyContent = "center";
+  function fixGalleryBounds() {
+    const grid = document.querySelector(".gallery-grid");
+    const items = document.querySelectorAll(".gallery-item");
+    
+    if (grid && items.length > 0) {
+      // Remove the theme's broken 'absolute' calculation
+      grid.style.height = "auto";
       
-      // 2. Remove any absolute positioning that the buggy script added
-      var items = grid.querySelectorAll(".gallery-item");
-      items.forEach(function(item) {
+      items.forEach(item => {
         item.style.position = "relative";
-        item.style.left = "auto";
         item.style.top = "auto";
+        item.style.left = "auto";
+        item.style.transform = "none";
       });
-      console.log("Gallery Overlap Fix: Applied Flex fallback");
+      
+      console.log("Layout: Bounds corrected and coordinates cleared.");
     }
   }
 
-  // Run immediately and after a delay
-  window.addEventListener("load", fixGalleryOverlap);
-  setTimeout(fixGalleryOverlap, 1500);
+  // Run as soon as possible and again when images are fully ready
+  window.addEventListener("DOMContentLoaded", fixGalleryBounds);
+  window.addEventListener("load", fixGalleryBounds);
 ` -}}
 <script>{{ $js | safeJS }}</script>
