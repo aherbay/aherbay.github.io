@@ -1,15 +1,26 @@
 {{- $js := `
-  function triggerGalleryFix() {
-    var gallery = document.querySelector(".gallery");
-    if (gallery && window.imagesLoaded) {
-      imagesLoaded(gallery, function() {
-        // Shaking the window forces Isotope to recalculate positions
-        window.dispatchEvent(new Event("resize"));
-      });
+  function forceGalleryLayout() {
+    const gallery = document.querySelector('.gallery');
+    if (!gallery) return;
+
+    // 1. Force a browser reflow by hiding/showing
+    gallery.style.display = 'none';
+    gallery.offsetHeight; // flush CSS
+    gallery.style.display = 'block';
+
+    // 2. If Isotope is active, tell it to layout
+    if (window.jQuery && jQuery.fn.isotope) {
+      jQuery('.gallery').isotope('layout');
     }
+
+    // 3. Trigger global resize as a fallback
+    window.dispatchEvent(new Event('resize'));
+    console.log("Gallery Fix: Layout forced");
   }
-  window.addEventListener("load", triggerGalleryFix);
-  // Backup nudge for fast-loading environments
-  setTimeout(triggerGalleryFix, 1000);
+
+  // Run multiple times to catch late-loading images
+  window.addEventListener('load', forceGalleryLayout);
+  setTimeout(forceGalleryLayout, 500);
+  setTimeout(forceGalleryLayout, 2000);
 ` -}}
 <script>{{ $js | safeJS }}</script>
