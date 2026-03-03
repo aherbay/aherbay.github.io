@@ -47,7 +47,7 @@ design:
 
 
   # For Showcase view, flip alternate rows?
-  flip_alt_rows: flase
+  flip_alt_rows: false
 ---
 
 <p style="text-align: center;"> <a href="#gallery">La galerie des pages de couverture est disponible au bas de la page</a> </p>
