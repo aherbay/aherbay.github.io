@@ -15,6 +15,4 @@ subtitle:
 design:
   columns: '1'
 ---
-
-{{< gallery album="prescovers" >}}
-{{< gallery_fix >}}
+{{< simple_grid album="prescovers" >}}
