@@ -1,26 +1,26 @@
 {{- $js := `
-  function forceGalleryLayout() {
-    const gallery = document.querySelector('.gallery');
-    if (!gallery) return;
-
-    // 1. Force a browser reflow by hiding/showing
-    gallery.style.display = 'none';
-    gallery.offsetHeight; // flush CSS
-    gallery.style.display = 'block';
-
-    // 2. If Isotope is active, tell it to layout
-    if (window.jQuery && jQuery.fn.isotope) {
-      jQuery('.gallery').isotope('layout');
+  function fixGalleryOverlap() {
+    var grid = document.querySelector(".gallery-grid");
+    if (grid) {
+      // 1. Force the container to recognize its children
+      grid.style.display = "flex";
+      grid.style.flexWrap = "wrap";
+      grid.style.gap = "10px";
+      grid.style.justifyContent = "center";
+      
+      // 2. Remove any absolute positioning that the buggy script added
+      var items = grid.querySelectorAll(".gallery-item");
+      items.forEach(function(item) {
+        item.style.position = "relative";
+        item.style.left = "auto";
+        item.style.top = "auto";
+      });
+      console.log("Gallery Overlap Fix: Applied Flex fallback");
     }
-
-    // 3. Trigger global resize as a fallback
-    window.dispatchEvent(new Event('resize'));
-    console.log("Gallery Fix: Layout forced");
   }
 
-  // Run multiple times to catch late-loading images
-  window.addEventListener('load', forceGalleryLayout);
-  setTimeout(forceGalleryLayout, 500);
-  setTimeout(forceGalleryLayout, 2000);
+  // Run immediately and after a delay
+  window.addEventListener("load", fixGalleryOverlap);
+  setTimeout(fixGalleryOverlap, 1500);
 ` -}}
 <script>{{ $js | safeJS }}</script>
