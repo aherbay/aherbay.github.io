@@ -1,5 +1,33 @@
 {{- $js := `
-  console.log("CSS Grid override active. Disabling Isotope for gallery.");
-  // No complex JS needed if the CSS Grid is forced
+  (function() {
+    function cleanGallery() {
+      const items = document.querySelectorAll('.gallery-item');
+      const grid = document.querySelector('.gallery-grid');
+      
+      if (grid) grid.style.height = 'auto';
+      
+      items.forEach(item => {
+        item.style.position = 'relative';
+        item.style.top = 'auto';
+        item.style.left = 'auto';
+        item.style.transform = 'none';
+      });
+    }
+
+    // This "MutationObserver" watches for the theme trying to change styles
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach(() => {
+        cleanGallery();
+      });
+    });
+
+    const target = document.querySelector('#gallery');
+    if (target) {
+      observer.observe(target, { attributes: true, subtree: true, attributeFilter: ['style'] });
+    }
+
+    // Initial run
+    window.addEventListener('load', cleanGallery);
+  })();
 ` -}}
 <script>{{ $js | safeJS }}</script>
