@@ -24,39 +24,31 @@
   }
 }
 
-/* 1. Force the Container to stop being a "pile" */
+/* 1. Eliminate the 'overflow: visible' warning at the root */
+.gallery-grid img, 
+.gallery-item img {
+  overflow: clip !important;   /* This is the DIRECT fix for the console warning */
+  display: block !important;
+  width: 400px !important;    /* Your requested width */
+  height: 300px !important;   /* Forced height for the crop */
+  object-fit: cover !important; /* Crops the image to fit the 400x300 box */
+}
+
+/* 2. Reset the layout container */
 .gallery-grid {
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 20px !important;
   justify-content: center !important;
-  height: auto !important; /* Kill the JS-calculated height */
+  height: auto !important;     /* Kill Isotope's calculated height */
   overflow: hidden !important;
 }
 
-/* 2. Precision 400px Crop Logic */
+/* 3. Strip positioning from items */
 .gallery-item {
-  /* Force it out of Isotope's absolute positioning */
   position: relative !important; 
   top: auto !important;
   left: auto !important;
   transform: none !important;
-  
-  /* Set your 400px width */
-  width: 400px !important; 
-  max-width: 100%;
-  margin-bottom: 20px !important;
-}
-
-.gallery-item img {
   width: 400px !important;
-  height: 300px !important; /* Adjust height to your preferred crop ratio */
-  object-fit: cover !important; /* This is what does the actual cropping */
-  
-  /* THIS FIXES THE CONSOLE WARNING */
-  overflow: clip !important; 
-  display: block !important;
-  
-  /* Ensure the image doesn't 'leak' */
-  border-radius: 8px; 
-}
+}a
