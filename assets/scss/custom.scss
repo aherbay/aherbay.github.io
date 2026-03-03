@@ -23,3 +23,14 @@
     display: block; // Show dark image
   }
 }
+/* Address the browser console warning */
+.gallery-grid img, 
+.gallery-item img {
+  overflow: clip !important; 
+  display: block;
+}
+
+/* Ensure the container isn't forcing a weird overflow */
+.gallery-grid {
+  overflow: hidden !important;
+}
